@@ -1,8 +1,10 @@
 const net = require("net");
+let i = 0;
 const server = net.createServer(c => {
     // 'connection' listener
-    console.log("client connected");
-    proxyConnection(c, process.argv[3], process.argv[4]);
+    i++;
+    console.log("client connected", i);
+    proxyConnection(c, process.argv[3], process.argv[4], i);
 });
 server.on("error", err => {
     throw err;
@@ -11,31 +13,33 @@ server.listen(process.argv[2], () => {
     console.log("Proxy server bound on 8125");
 });
 
-function proxyConnection(socketIn, destinationPort, destinationHost) {
+
+function proxyConnection(socketIn, destinationPort, destinationHost, index) {
+
     var socketOut = net.createConnection(destinationPort, destinationHost);
     socketOut.once("connect", function() {
-        console.log("proxy: connected to destination");
+        console.log("proxy: connected to ", destinationHost, destinationPort, index);
         socketOut.pipe(socketIn);
         socketIn.pipe(socketOut);
     });
     socketOut.on("error", e => {
-        console.log("proxy: Error", e);
+        console.log("proxy: Error", index, e);
     });
     socketOut.on("end", () => {
-        console.log("proxy: End");
+        console.log("proxy: End", index);
     });
     socketOut.on("close", () => {
-        console.log("proxy: Close");
+        console.log("proxy: Close", index);
     });
     socketIn.on("end", () => {
-        console.log("socketIn:client end");
+        console.log("socketIn:client end", index);
         socketOut.end();
     });
     socketIn.on("close", hadError => {
-        console.log("socketIn:client close", hadError);
+        console.log("socketIn:client close", hadError, index);
     });
     socketIn.on("error", e => {
-        console.log("socketIn:client Error", e);
+        console.log("socketIn:client Error", e, index);
         socketOut.end();
     });
 }

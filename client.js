@@ -34,6 +34,7 @@ function readFile(socket, callback) {
         console.log("finished reading");
 
         socket.end();
+        socket.destroy();
         hrend = process.hrtime(hrstart);
         console.info("Execution time (hr): %ds %dms", hrend[0], hrend[1] / 1000000);
         callback();
