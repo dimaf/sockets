@@ -23,7 +23,7 @@ function readFile(socket, callback) {
     var hrstart = process.hrtime();
     var readStream = new streamBuffers.ReadableStreamBuffer({
         frequency: 1, // in milliseconds.
-        chunkSize: 1024 * 100 // in bytes.
+        chunkSize: 1024 * 1000 // in bytes.
     });
 
     // With a buffer
