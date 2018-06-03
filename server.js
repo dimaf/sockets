@@ -3,7 +3,7 @@ const net = require(`net`);
 const cluster = require(`cluster`);
 const http = require(`http`);
 let numCPUs = require(`os`).cpus().length;
-numCPUs = 1;
+
 if (cluster.isMaster) {
     console.log(`Master ${process.pid} is running`);
     cluster.schedulingPolicy = cluster.SCHED_RR;
@@ -38,7 +38,7 @@ if (cluster.isMaster) {
     server.on(`error`, err => {
         console.log(`server error`, err);
     });
-    server.listen(process.argv[2], '0.0.0.0' () => {
+    server.listen(process.argv[2], '0.0.0.0', () => {
         console.log(`${process.pid} server bound`);
     });
     console.log(`${process.pid} started worker`);
