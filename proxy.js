@@ -2,7 +2,7 @@ const net = require("net");
 const server = net.createServer(c => {
     // 'connection' listener
     console.log("client connected");
-    proxyConnection(c, process.argv[3]);
+    proxyConnection(c, process.argv[3], process.argv[4]);
 });
 server.on("error", err => {
     throw err;
@@ -11,8 +11,8 @@ server.listen(process.argv[2], () => {
     console.log("Proxy server bound on 8125");
 });
 
-function proxyConnection(socketIn, destinationPort) {
-    var socketOut = net.createConnection(destinationPort);
+function proxyConnection(socketIn, destinationPort, destinationHost) {
+    var socketOut = net.createConnection(destinationPort, destinationHost);
     socketOut.once("connect", function() {
         console.log("proxy: connected to destination");
         socketOut.pipe(socketIn);
@@ -39,9 +39,9 @@ function proxyConnection(socketIn, destinationPort) {
         socketOut.end();
     });
 }
-var hrstart = process.hrtime();
+/*var hrstart = process.hrtime();
 setInterval(() => {
     hrend = process.hrtime(hrstart);
     console.info("Execution time (hr): %ds %dms", hrend[0], hrend[1] / 1000000);
     hrstart = process.hrtime();
-}, 500);
+}, 500);*/

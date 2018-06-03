@@ -24,6 +24,9 @@ if (cluster.isMaster) {
         c.on("end", () => {
             console.log(`${process.pid} client disconnected`);
         });
+        c.on("close", () => {
+            console.log(`${process.pid} client closed`);
+        });
         c.on(`error`, e => {
             console.log(`${process.pid} socket error  error`, e);
         });
