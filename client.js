@@ -13,13 +13,21 @@ function sendFile() {
     socket.once("connect", function() {
         //console.log("connected");
         readFile(socket, () => {
-            //sendFile();
+            sendFile();
         });
     });
 
     socket.addListener("data", function(data) {
         //console.log("Message: '" + data + "'");
     });
+}
+
+function writeData(socket, callback) {
+    socket.write(aBuffer, "utf8", () => {
+        console.log("Written");
+        socket.end();
+        socket.destroy();
+    })
 }
 
 function readFile(socket, callback) {
@@ -37,7 +45,7 @@ function readFile(socket, callback) {
         //console.log("finished reading");
 
         socket.end();
-        socket.destroy();
+        // socket.destroy();
         hrend = process.hrtime(hrstart);
         index++;
         sum += hrend[0] * 1000 + hrend[1] / 1000000

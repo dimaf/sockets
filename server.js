@@ -34,7 +34,7 @@ if (cluster.isMaster) {
 
         c.on(`data`, function(data) {
             length += data.length;
-            console.log(i++, data.length);
+            // console.log(i++, data.length);
             //console.log(`message: \n` + data + `\n - end of msg.`);
         });
         //c.write(`hello\r\n`);
