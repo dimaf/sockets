@@ -19,9 +19,10 @@ if (cluster.isMaster) {
     // In this case it is an HTTP server
     const server = net.createServer(c => {
         // 'connection' listener
+        let length = 0;
         console.log(`${process.pid} client connected`);
         c.on("end", () => {
-            console.log(`${process.pid} client disconnected`);
+            console.log(`${process.pid} client disconnected`, length);
         });
         c.on("close", () => {
             console.log(`${process.pid} client closed`);
@@ -30,7 +31,9 @@ if (cluster.isMaster) {
             console.log(`${process.pid} socket error  error`, e);
         });
         let i = 0;
+
         c.on(`data`, function(data) {
+            length += data.length;
             //console.log(i++, data.length);
             //console.log(`message: \n` + data + `\n - end of msg.`);
         });
