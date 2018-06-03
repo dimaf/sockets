@@ -46,5 +46,5 @@ if (cluster.isMaster) {
     server.listen(process.argv[2], '0.0.0.0', () => {
         console.log(`${process.pid} server bound`);
     });
-    console.log(`${process.pid} started worker`);
+    console.log(`${process.pid} started worker.`);
 }

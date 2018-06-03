@@ -3,6 +3,7 @@ const net = require("net"),
     streamBuffers = require('stream-buffers');
 var crypto = require("crypto");
 var aBuffer = crypto.randomBytes(1024 * 100 * 10).toString('hex');
+console.log("Buffer Length ", aBuffer.length)
 sendFile();
 let sum = 0;
 let index = 0;
