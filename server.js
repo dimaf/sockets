@@ -25,7 +25,7 @@ if (cluster.isMaster) {
             console.log(`${process.pid} client disconnected`, length);
         });
         c.on("close", () => {
-            console.log(`${process.pid} client closed`);
+            console.log(`${process.pid} client closed`, length);
         });
         c.on(`error`, e => {
             console.log(`${process.pid} socket error  error`, e);
@@ -34,7 +34,7 @@ if (cluster.isMaster) {
 
         c.on(`data`, function(data) {
             length += data.length;
-            //console.log(i++, data.length);
+            console.log(i++, data.length);
             //console.log(`message: \n` + data + `\n - end of msg.`);
         });
         //c.write(`hello\r\n`);

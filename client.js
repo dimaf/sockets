@@ -2,7 +2,7 @@ const net = require("net"),
     fs = require("fs"),
     streamBuffers = require('stream-buffers');
 var crypto = require("crypto");
-var aBuffer = crypto.randomBytes(1024 * 100 * 10).toString('hex');
+var aBuffer = crypto.randomBytes(1024 * 500).toString('hex');
 console.log("Buffer Length ", aBuffer.length)
 sendFile();
 let sum = 0;
@@ -13,7 +13,7 @@ function sendFile() {
     socket.once("connect", function() {
         //console.log("connected");
         readFile(socket, () => {
-            sendFile();
+            //sendFile();
         });
     });
 
@@ -26,7 +26,7 @@ function readFile(socket, callback) {
     var hrstart = process.hrtime();
     var readStream = new streamBuffers.ReadableStreamBuffer({
         frequency: 1, // in milliseconds.
-        chunkSize: 1024 * 1000 // in bytes.
+        chunkSize: 1024 * 500 // in bytes.
     });
 
     // With a buffer
