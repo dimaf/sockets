@@ -38,7 +38,7 @@ if (cluster.isMaster) {
     server.on(`error`, err => {
         console.log(`server error`, err);
     });
-    server.listen(process.argv[2], () => {
+    server.listen(process.argv[2], '0.0.0.0' () => {
         console.log(`${process.pid} server bound`);
     });
     console.log(`${process.pid} started worker`);

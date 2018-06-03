@@ -2,11 +2,11 @@ const net = require("net"),
     fs = require("fs"),
     streamBuffers = require('stream-buffers');
 var crypto = require("crypto");
-var aBuffer = crypto.randomBytes(1024 * 100 * 100).toString('hex');
+var aBuffer = crypto.randomBytes(1024 * 100 * 10).toString('hex');
 sendFile();
 
 function sendFile() {
-    var socket = net.createConnection(process.argv[2]);
+    var socket = net.createConnection(process.argv[2], process.argv[3]);
     socket.once("connect", function() {
         console.log("connected");
         readFile(socket, () => {
